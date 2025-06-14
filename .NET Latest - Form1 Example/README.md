@@ -33,9 +33,34 @@ The project includes three different implementation approaches:
 
 ## Getting Started
 
+### Installing AgniGuardian
+
+You can add AgniGuardian to your .NET project using:
+
+#### Using NuGet Package Manager UI:
+1. Right-click on your project in Solution Explorer
+2. Select "Manage NuGet Packages"
+3. Search for "AgniGuardian"
+4. Select the version compatible with .NET 6.0 or later
+5. Click "Install"
+
+#### Using Package Manager Console:
+```powershell
+Install-Package AgniGuardian
+```
+
+#### Using .NET CLI:
+```bash
+dotnet add package AgniGuardian
+```
+
+### Running the Examples
+
 1. Open the desired project in Visual Studio 2022
-2. Restore NuGet packages if needed
+2. Restore NuGet packages to get AgniGuardian
 3. Build and run the project
+
+Note: Make sure to use the latest version of AgniGuardian that supports .NET 6.0 or your target framework version.
 
 ## Implementation Details
 

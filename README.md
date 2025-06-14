@@ -27,11 +27,27 @@ Each section contains three different implementation approaches:
 - .NET Framework (for .NET Framework examples)
 - .NET 6.0 or later (for latest .NET examples)
 
+### Installing AgniGuardian
+
+You can install AgniGuardian using either the NuGet Package Manager UI or the Package Manager Console:
+
+#### Using NuGet Package Manager UI:
+1. Right-click on your project in Solution Explorer
+2. Select "Manage NuGet Packages"
+3. Search for "AgniGuardian"
+4. Click "Install"
+
+#### Using Package Manager Console:
+```powershell
+Install-Package AgniGuardian
+```
+
 ### Running the Examples
 
 1. Clone this repository
 2. Open the desired solution in Visual Studio
-3. Build and run the project
+3. Restore NuGet packages to get AgniGuardian
+4. Build and run the project
 
 ## Implementation Approaches
 
