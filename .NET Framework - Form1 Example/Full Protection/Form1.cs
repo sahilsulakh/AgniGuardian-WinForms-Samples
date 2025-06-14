@@ -12,8 +12,8 @@ namespace TestApplication
 
         public Form1()
         {
-            InitializeComponent();
-            InitializeAgniSentinel();
+            InitializeAgniSentinel();          // <<--- KEEP IT ABOVE "InitializeComponent()"   
+            InitializeComponent();            
         }
 
         private void InitializeAgniSentinel()
