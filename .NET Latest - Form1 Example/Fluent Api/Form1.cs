@@ -1,17 +1,28 @@
 using System;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using AgniSentinel;
 using AgniSentinel.Core;
+using AgniSentinel.Core.Reporting;
 
 namespace TestApplication
 {
     public partial class Form1 : Form
     {
         private Sentinel? _sentinel;
+        private DiscordWebhookReporter? _discordReporter;
 
         public Form1()
         {
             InitializeComponent();
+
+            // Initialize the Discord webhook reporter
+            // Replace with your actual Discord webhook URL
+            _discordReporter = new DiscordWebhookReporter(
+                webhookUrl: "YOUR_DISCORD_WENHOOK_URL_HERE",          // <<<--- REPLACE WITH YOUR DISCORD WEBHOOK URL
+                includeScreenshot: true
+            );
+
             if (!InitializeAgniSentinel())
             {
                 MessageBox.Show("Security check failed! Application will now close.", "Security Alert", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -40,17 +51,17 @@ namespace TestApplication
 
                 // Get the sentinel instance after initialization
                 _sentinel = AgniGuard.GetSentinel();
-                
+
                 if (_sentinel != null)
                 {
                     _sentinel.SecurityThreatDetected += OnSecurityThreatDetected;
-                    
+
                     if (_sentinel.State == SentinelState.Error)
                     {
                         MessageBox.Show("Security system initialization failed!", "Security Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
                     }
-                    
+
                     return true;
                 }
 
@@ -63,12 +74,18 @@ namespace TestApplication
             }
         }
 
-        private void HandleSecurityThreat(SecurityThreatDetectedEventArgs e)
+        private async void HandleSecurityThreat(SecurityThreatDetectedEventArgs e)
         {
             if (InvokeRequired)
             {
                 Invoke(new Action(() => HandleSecurityThreat(e)));
                 return;
+            }
+
+            // Report to Discord using the reporter class
+            if (_discordReporter?.IsEnabled == true)
+            {
+                _ = _discordReporter.ReportThreatAsync(e);
             }
 
             MessageBox.Show(
@@ -82,12 +99,18 @@ namespace TestApplication
             Application.Exit();
         }
 
-        private void OnSecurityThreatDetected(object? sender, SecurityThreatDetectedEventArgs e)
+        private async void OnSecurityThreatDetected(object? sender, SecurityThreatDetectedEventArgs e)
         {
             if (InvokeRequired)
             {
                 Invoke(new Action(() => OnSecurityThreatDetected(sender, e)));
                 return;
+            }
+
+            // Report to Discord using the reporter class
+            if (_discordReporter?.IsEnabled == true)
+            {
+                _ = _discordReporter.ReportThreatAsync(e);
             }
 
             MessageBox.Show(
@@ -105,6 +128,7 @@ namespace TestApplication
         {
             base.OnFormClosing(e);
             _sentinel?.Dispose();
+            _discordReporter?.Dispose();
         }
     }
 }
