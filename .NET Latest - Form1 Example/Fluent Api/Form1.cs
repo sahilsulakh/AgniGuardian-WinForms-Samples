@@ -10,18 +10,10 @@ namespace TestApplication
     public partial class Form1 : Form
     {
         private Sentinel? _sentinel;
-        private DiscordWebhookReporter? _discordReporter;
 
         public Form1()
         {
             InitializeComponent();
-
-            // Initialize the Discord webhook reporter
-            // Replace with your actual Discord webhook URL
-            _discordReporter = new DiscordWebhookReporter(
-                webhookUrl: "YOUR_DISCORD_WENHOOK_URL_HERE",          // <<<--- REPLACE WITH YOUR DISCORD WEBHOOK URL
-                includeScreenshot: true
-            );
 
             if (!InitializeAgniSentinel())
             {
@@ -82,12 +74,6 @@ namespace TestApplication
                 return;
             }
 
-            // Report to Discord using the reporter class
-            if (_discordReporter?.IsEnabled == true)
-            {
-                _ = _discordReporter.ReportThreatAsync(e);
-            }
-
             MessageBox.Show(
                 $"Security threat detected!\n\nType: {e.ThreatType}\nAction: {e.ThreatAction}",
                 "Security Alert",
@@ -107,12 +93,6 @@ namespace TestApplication
                 return;
             }
 
-            // Report to Discord using the reporter class
-            if (_discordReporter?.IsEnabled == true)
-            {
-                _ = _discordReporter.ReportThreatAsync(e);
-            }
-
             MessageBox.Show(
                 $"Security threat detected!\n\nType: {e.ThreatType}\nAction: {e.ThreatAction}",
                 "Security Warning",
@@ -128,7 +108,6 @@ namespace TestApplication
         {
             base.OnFormClosing(e);
             _sentinel?.Dispose();
-            _discordReporter?.Dispose();
         }
     }
 }
