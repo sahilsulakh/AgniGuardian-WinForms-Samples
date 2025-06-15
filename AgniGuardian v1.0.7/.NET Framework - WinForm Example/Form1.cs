@@ -28,7 +28,7 @@ namespace App1Framework          // <<<--- CHANGE IT WITH YOUR WORKSPACE NAME
                 EnableAntiDecompile = true,
                 EnableIntegrityChecker = false,     // <<<--- KEEP IT FALSE DURING DEVELOPMENT
                 EnableProcessMonitor = true,
-                EnableRuntimeGuard = true,         // <<<--- KEEP IT FALSE DURING DEVELOPMENT
+                EnableRuntimeGuard = false,         // <<<--- KEEP IT FALSE DURING DEVELOPMENT
                 EnableNetworkGuard = false,        // <<<--- KEEP IT FALSE DURING DEVELOPMENT
                 DiscordWebhookUrl = "your_discord_webhook_url"          // <<<--- REPLACE WITH YOUR DISCORD WEBHOOK URL
             });
